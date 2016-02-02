@@ -4,3 +4,4 @@ sudo groupadd bargroup
 sudo usermod -a -G bargroup $USER 
 groups $USER
 sudo chgrp bargroup foofile
+ls -l foofile
