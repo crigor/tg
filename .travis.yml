@@ -15,5 +15,5 @@ script:
     - env
     - sudo -E su $USER -c "chgrp fuse testfile" # the sudo / su wrapper is required per Travis instructions, see link above - good
     - python --version # reports 3.4 or 3.5 - good
-    - sudo -E su $USER -c "source $VIRTUAL_ENV/activate; python --version"
+    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; python --version"
     - sudo -E su $USER -c "env"
