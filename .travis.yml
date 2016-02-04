@@ -1,5 +1,19 @@
-sudo: required
-language: ruby
-rvm:
-  - 2.0.0
-script: sh test.sh
+language: python
+sudo: true
+
+python:
+    - "3.4"
+    - "3.5"
+
+before_install:
+    - sudo apt-get -qq update
+    - sudo gpasswd -a $USER fuse
+
+script:
+    - touch testfile
+    - chgrp fuse testfile | echo 0 # this does not work - bad
+    - env
+    - sudo -E su $USER -c "chgrp fuse testfile" # the sudo / su wrapper is required per Travis instructions, see link above - good
+    - python --version # reports 3.4 or 3.5 - good
+    - sudo -E su $USER -c "python --version"
+    - sudo -E su $USER -c "env"
