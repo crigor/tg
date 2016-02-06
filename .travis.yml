@@ -24,3 +24,10 @@ install:
 # command to run tests
 script:
   - python test.py
+
+addons:
+  apt:
+    sources:
+    - r-packages-precise
+    packages:
+    - r-base
