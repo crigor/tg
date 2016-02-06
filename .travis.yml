@@ -1,5 +1,26 @@
-sudo: required
-language: ruby
-rvm:
-  - 2.0.0
-script: sh test.sh
+language: python
+
+# Be strict when checking our package
+warnings_are_errors: true
+
+# command to install dependencies
+install:
+  # http://conda.pydata.org/docs/travis.html
+  - wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  # Replace dep1 dep2 ... with your dependencies
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy scipy matplotlib pandas cython
+
+  - source activate test-environment
+
+  - python setup.py install
+
+# command to run tests
+script:
+  - python test.py
